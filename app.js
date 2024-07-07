@@ -102,7 +102,7 @@ app.use((req, res, next) => {
 // ROUTES
 // USING THE ROUTES
 // FOR LISTINGS
-app.use('/listings', listingsroute);
+app.use('/', listingsroute);
 // FOR REVIEWS
 app.use('/listings/:id/reviews', reviewsroute);
 // FOR USERS
