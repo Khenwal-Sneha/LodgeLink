@@ -36,7 +36,7 @@ module.exports.llogic = (req, res) => {
     if (res.locals.redirectUrl) {
         return res.redirect(res.locals.redirectUrl);
     }
-    res.redirect("/");
+    res.redirect("/")
 };
 
 // Logout logic
