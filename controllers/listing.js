@@ -51,7 +51,7 @@ module.exports.create = async (req, res, next) => {
         listing.image= { url: req.file.path, filename: req.file.filename };
 
         await listing.save();
-        // req.flash('success', 'Successfully created a new listing!');
+        req.flash('success', 'Successfully created a new listing!');
         res.redirect(`/listings/${listing._id}`);
     } catch (e) {
         console.error(e);
@@ -82,7 +82,7 @@ module.exports.update = async (req, res, next) => {
       const listing = await Listing.findById(id);
       if (!listing) {
         req.flash('error', 'Listing not found!');
-        return res.redirect('/');
+        return res.redirect('/listings');
       }
     
       // Check if the current user is the owner of the listing
@@ -119,7 +119,7 @@ module.exports.delete=async (req,res,next)=>{
     if(dltlisting && req.user._id.equals(dltlisting.owner)){
         await Listing.findByIdAndDelete(id);
         req.flash("success","Your Listing was deleted!");
-        res.redirect("/");
+        res.redirect("/listings");
     }else{
         req.flash("error","You cannot delete this listing!");
         res.redirect(`/listings/${id}`);

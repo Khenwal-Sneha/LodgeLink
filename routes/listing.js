@@ -14,11 +14,11 @@ router.route('/')
     // Create Route
     .post(isLoggedin, upload.single('img'), asyncWrap(listingController.create));
 
-router.route('/listings/new')
+router.route('/new')
     // New Form
     .get(isLoggedin, listingController.newForm);
 
-router.route('/listings/:id')
+router.route('/:id')
     // Show Route
     .get(asyncWrap(listingController.show))
     // Update Route
@@ -26,7 +26,7 @@ router.route('/listings/:id')
     // Delete Route
     .delete(isLoggedin, asyncWrap(listingController.delete));
 
-router.route('/listings/:id/edit')
+router.route('/:id/edit')
     // Edit Route
     .get(isLoggedin, asyncWrap(listingController.edit));
 
