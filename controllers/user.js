@@ -15,10 +15,10 @@ module.exports.slogic = async (req, res, next) => {
         req.login(registeredUser, (err) => {
             if (err) {
                 req.flash("error", "Problem logging in!");
-                return res.redirect("/listings");
+                return res.redirect("/");
             }
             req.flash("success", "Welcome to LodgeLink!");
-            res.redirect("/listings");
+            res.redirect("/");
         });
     } catch (err) {
         req.flash("error", "Username already exists!");
@@ -36,7 +36,7 @@ module.exports.llogic = (req, res) => {
     if (res.locals.redirectUrl) {
         return res.redirect(res.locals.redirectUrl);
     }
-    res.redirect("/listings");
+    res.redirect("/");
 };
 
 // Logout logic
@@ -44,10 +44,10 @@ module.exports.logout = (req, res) => {
     req.logout((err) => {
         if (err) {
             req.flash("error", "Logout Failed, try again!");
-            return res.redirect("/listings");
+            return res.redirect("/");
         }
         req.flash("success", "You are Logged Out!");
-        res.redirect("/listings");
+        res.redirect("/");
     });
 };
 
@@ -58,7 +58,7 @@ module.exports.viewProfile = async (req, res, next) => {
         const user = await User.findOne({ username });
         if (!user) {
             req.flash("error", "User not found");
-            return res.redirect("/listings");
+            return res.redirect("/");
         }
         const listings = await Listing.find({ owner: user._id });
         res.render("user/profile", { user, listings });
@@ -84,7 +84,7 @@ module.exports.upload = async (req, res, next) => {
     // Check if the user exists
     if (!user) {
         req.flash("error", "User not found");
-        return res.redirect("/listings");
+        return res.redirect("/");
     }
 
     // Set the user's image properties
@@ -102,7 +102,7 @@ module.exports.info = async (req, res, next) => {
         const user = await User.findOne({ username });
         if (!user) {
             req.flash("error", "User not found");
-            return res.redirect("/listings");
+            return res.redirect("/");
         }
         const listings = await Listing.find({ owner: user._id }).populate("owner");
         res.render("user/info", { user, listings });
